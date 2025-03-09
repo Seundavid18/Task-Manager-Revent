@@ -32,7 +32,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: "Publish Kubernetes Manifests"
       inputs:
-        pathToPublish: '$(System.ArtifactsDirectory)/k8s'
+        pathToPublish: '$(Build.SourcesDirectory)/k8s'
         artifactName: manifests
 
 - stage: Deploy
@@ -53,7 +53,7 @@ stages:
       displayName: "Download Kubernetes Manifests"
       inputs:
         artifactName: 'manifests'
-        downloadPath: '$(System.ArtifactsDirectory)/k8s'
+        downloadPath: '$(Build.SourcesDirectory)/k8s'
 
     - task: KubernetesManifest@1
       displayName: "Deploy Application to AKS"
@@ -63,8 +63,8 @@ stages:
         kubernetesServiceConnection: "$(K8S_SERVICE_ENDPOINT)"
         namespace: 'revent-task'
         manifests: |
-          $(System.ArtifactsDirectory)/k8s/deployment.yaml
-          $(System.ArtifactsDirectory)/k8s/service.yaml
+          $(Build.SourcesDirectory)/k8s/deployment.yaml
+          $(Build.SourcesDirectory)/k8s/service.yaml
         containers: "$(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(IMAGE_TAG)"
         overrideValues: |
           env.MONGO_URI=$(MONGO_URI)
