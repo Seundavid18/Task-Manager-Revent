@@ -1,0 +1,23 @@
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Crash logs
+crash.log
+
+# Ignore Terraform provider modules
+.terraform/
+.terraform.lock.hcl
+
+# Ignore local override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore SSH private keys
+id_rsa
+id_rsa.pub
+
+# Ignore temporary Terraform plan output
+terraform.plan

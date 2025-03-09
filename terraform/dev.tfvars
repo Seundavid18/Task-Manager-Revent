@@ -1,0 +1,9 @@
+environment     = "dev"
+location        = "East US"
+resource_group  = "Revent-task-rg"
+cluster_name    = "revent-task-api-aks"
+dns_prefix      = "reventdns"
+node_count      = 1
+acr_name        = "reventtaskapiacr"
+log_analytics_workspace_name = "revent-task-api-logs"
+retention_in_days = 30
