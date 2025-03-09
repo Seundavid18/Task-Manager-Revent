@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: task-manager
+  name: revent-task-api-deployment
+  namespace: revent-task
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: task-manager
+      app: revent-task-api
   template:
     metadata:
       labels:
-        app: task-manager
+        app: revent-task-api
     spec:
       containers:
-      - name: task-manager
-        image: seundavid/revent-task-manager:latest
+      - name: revent-task-api
+        image: reventtaskapiacr/revent-task-api:latest
         ports:
         - containerPort: 5000
         env:
