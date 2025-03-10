@@ -78,3 +78,50 @@ stages:
         inlineScript: |
           kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/setup/
           kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/
+
+# # Using Helm
+# - stage: Deploy
+#   displayName: "Deploy to AKS"
+#   jobs:
+#   - job: DeployToK8s
+#     steps:
+#     - task: AzureCLI@2
+#       displayName: "Set Kubernetes Context"
+#       inputs:
+#         azureSubscription: "$(AZ_SERVICE_CONNECTION)"
+#         scriptType: bash
+#         scriptLocation: inlineScript
+#         inlineScript: |
+#           az aks get-credentials --resource-group $(RESOURCE_GROUP) --name $(CLUSTER_NAME)
+
+#     - task: AzureCLI@2
+#       displayName: "Add Prometheus Helm Repository"
+#       inputs:
+#         azureSubscription: "$(AZ_SERVICE_CONNECTION)"
+#         scriptType: bash
+#         scriptLocation: inlineScript
+#         inlineScript: |
+#           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+#           helm repo update
+
+#     - task: HelmDeploy@0
+#       displayName: "Install Prometheus"
+#       inputs:
+#         kubernetesServiceEndpoint: "$(K8S_SERVICE_ENDPOINT)"
+#         namespace: "monitoring"
+#         command: "upgrade"
+#         chartType: "Repository"
+#         chartName: "prometheus-community/kube-prometheus-stack"
+#         releaseName: "prometheus"
+#         arguments: "--install --create-namespace"
+
+#     - task: HelmDeploy@0
+#       displayName: "Deploy to AKS"
+#       inputs:
+#         kubernetesServiceEndpoint: "$(K8S_SERVICE_ENDPOINT)"
+#         namespace: "revent-task"
+#         command: "upgrade"
+#         chartType: "FilePath"
+#         chartPath: "helm/"
+#         releaseName: "revent-task-api"
+#         arguments: "--install --set image.tag=$(Build.BuildId)"
