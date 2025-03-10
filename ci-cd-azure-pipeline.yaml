@@ -79,6 +79,16 @@ stages:
           kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/setup/
           kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/
 
+    - task: KubernetesManifest@1
+      displayName: "Deploy ServiceMonitor to AKS"
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: "$(K8S_SERVICE_ENDPOINT)"
+        namespace: 'monitoring'
+        manifests: |
+          $(Build.SourcesDirectory)/k8s/prometheus/service-monitor.yaml
+
 # # Using Helm
 # - stage: Deploy
 #   displayName: "Deploy to AKS"

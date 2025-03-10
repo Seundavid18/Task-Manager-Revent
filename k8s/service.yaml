@@ -3,11 +3,14 @@ kind: Service
 metadata:
   name: revent-task-api-service
   namespace: revent-task
+  labels:
+    app: revent-task-api
 spec:
   selector:
     app: revent-task-api
   ports:
-    - protocol: TCP
+    - name: http 
+      protocol: TCP
       port: 80
       targetPort: 5000
   type: LoadBalancer
