@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: revent-task-api
-        image: reventtaskapiacr/revent-task-api:latest
+        image: reventtaskapiacr.azurecr.io/revent-task-api:latest
         ports:
         - containerPort: 5000
         env:
